@@ -1,0 +1,8 @@
+.vs/
+debug/
+SitecoreFeatureFlags/bin/
+SitecoreFeatureFlags/obj/
+packages/
+lib/Sitecore.*
+release/
+*.user
