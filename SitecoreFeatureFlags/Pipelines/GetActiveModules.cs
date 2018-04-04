@@ -23,13 +23,7 @@ namespace SitecoreFeatureFlags.Pipelines
             Assert.IsNotNull(args, "args");
             try
             {
-                _contextItem = Context.Item;
-                if (_contextItem == null)
-                {
-                    string itemId = Context.Request.GetQueryString("sc_itemid");
-                    var master = Factory.GetDatabase("master");
-                    _contextItem = master.GetItem(new ID(itemId));
-                }
+                _contextItem = _getContextItem();
 
                 Item placeholderItem = null;
                 if (args.DeviceId.IsNull)
@@ -76,8 +70,6 @@ namespace SitecoreFeatureFlags.Pipelines
             {
                 args.PlaceholderRenderings.RemoveAll(c => c.ID == controlToBlock.ID);
             }
-            //string allowedMessage = string.Format("GetActiveModules (allowed): Item-{0} PlaceholderItem-{1} PlaceholderKey-{2} Renderings-{3}", _contextItem.Paths.Path, placeholderItem.Paths.Path, args.PlaceholderKey, controlsToAllow.Select(i => i.Paths.Path).Aggregate((i, j) => i + "; " + j));
-            //Log.Info(allowedMessage, this);
         }
 
         private PlaceholderSettingsRuleContext EvaluateRules(Item placeholder)
@@ -88,15 +80,41 @@ namespace SitecoreFeatureFlags.Pipelines
             {
                 if (rule.Condition != null)
                 {
-                    var passed = rule.Evaluate(context);
-                    if (passed)
-                    {
-                        rule.Execute(context);
-                    }
+                    rule.Execute(context);
                 }
             }
 
             return context;
+        }
+
+        private Item _getContextItem()
+        {
+            Item contextItem = Context.Item;
+
+            if (contextItem == null)
+            {
+                string itemId = _getContextItemId();
+                var master = Factory.GetDatabase("master");
+                contextItem = master.GetItem(new ID(itemId));
+            }
+
+            return contextItem;
+        }
+
+        private string _getContextItemId()
+        {
+            string result = string.Empty;
+            if (Context.Request.QueryString["sc_itemid"] != null)
+            {
+                result = Context.Request.GetQueryString("sc_itemid");
+            }
+            else
+            {
+                var valueList = HttpUtility.ParseQueryString(Context.Request.GetQueryString("url"));
+                result = valueList["sc_itemid"] ?? valueList["/?sc_itemid"];
+            }
+
+            return result;
         }
     }
 }

@@ -7,6 +7,7 @@ using Sitecore.Diagnostics;
 using Sitecore.Rules;
 using Sitecore.Rules.ConditionalRenderings;
 using Sitecore.Rules.Conditions;
+using Sitecore.Rules.InsertOptions;
 using SitecoreFeatureFlags.RulesContext;
 
 namespace SitecoreFeatureFlags.Rules
@@ -21,18 +22,37 @@ namespace SitecoreFeatureFlags.Rules
             bool matchFound = false;
             try
             {
-                var placeholderSettingsRuleContext = ruleContext as PlaceholderSettingsRuleContext;
-                var siteItem = Sitecore.Context.Database.GetItem(SiteItemId);
-                var currentRootItem = Sitecore.Context.Database.GetItem(Sitecore.Context.Site.RootPath);
-                if (SiteItemId == currentRootItem.ID)
+                if (ruleContext is PlaceholderSettingsRuleContext)
                 {
-                    ruleResponse = true;
+                    var currentRootItem = Sitecore.Context.Database.GetItem(Sitecore.Context.Site.RootPath);
+                    if (SiteItemId == currentRootItem.ID)
+                    {
+                        ruleResponse = true;
+                    }
+                    //shouldn't need to test for descendants, site should be at the rootPath level
+                }
+                else if (ruleContext is InsertOptionsRuleContext)
+                {
+                    var insertOptionsRuleContext = ruleContext as InsertOptionsRuleContext;
+                    var currentRootItem = insertOptionsRuleContext.Item;
+                    if (SiteItemId == currentRootItem.ID)
+                    {
+                        ruleResponse = true;
+                    }
+                    else
+                    {
+                        var siteItem = currentRootItem.Database.GetItem(SiteItemId);
+                        var isDescendantOf = currentRootItem.Paths.FullPath.StartsWith(siteItem.Paths.FullPath);
+                        ruleResponse = isDescendantOf;
+                    }
                 }
             }
             catch (Exception ex)
             {
                 Log.Debug(string.Format("BlockModulesBySiteSettingsRule -- {0}", ex.Message));
             }
+
+            Log.Info(string.Format("BlockModulesBySiteSettingsRule -- {0}", ruleResponse), this);
 
             return ruleResponse;
         }

@@ -4,5 +4,8 @@ SitecoreFeatureFlags/bin/
 SitecoreFeatureFlags/obj/
 packages/
 lib/Sitecore.*
+lib/HedgehogDevelopment.TDS.5.5.0.19/*
 release/
 *.user
+SitecoreFeatureFlags.TDS/obj
+SitecoreFeatureFlags.TDS/bin
