@@ -61,35 +61,5 @@ namespace SitecoreFeatureFlags.Pipelines
 
             return context;
         }
-
-        //private Item _getContextItem()
-        //{
-        //    Item contextItem = Context.Item;
-
-        //    if (contextItem == null)
-        //    {
-        //        string itemId = _getContextItemId();
-        //        var master = Factory.GetDatabase("master");
-        //        contextItem = master.GetItem(new ID(itemId));
-        //    }
-
-        //    return contextItem;
-        //}
-
-        //private string _getContextItemId()
-        //{
-        //    string result = string.Empty;
-        //    if (Context.Request.QueryString["sc_itemid"] != null)
-        //    {
-        //        result = Context.Request.GetQueryString("sc_itemid");
-        //    }
-        //    else
-        //    {
-        //        var valueList = HttpUtility.ParseQueryString(Context.Request.GetQueryString("url"));
-        //        result = valueList["sc_itemid"] ?? valueList["/?sc_itemid"];
-        //    }
-
-        //    return result;
-        //}
     }
 }
