@@ -12,7 +12,7 @@ using SitecoreFeatureFlags.RulesContext;
 
 namespace SitecoreFeatureFlags.Rules
 {
-    public class DescendantOfSiteRule<T> : StringOperatorCondition<T> where T : RuleContext
+    public class DescendantOfSiteRule<T> : WhenCondition<T> where T : RuleContext
     {
         public ID SiteItemId { get; set; }
         protected override bool Execute(T ruleContext)
@@ -22,30 +22,11 @@ namespace SitecoreFeatureFlags.Rules
             bool matchFound = false;
             try
             {
-                if (ruleContext is PlaceholderSettingsRuleContext)
-                {
-                    var currentRootItem = Sitecore.Context.Database.GetItem(Sitecore.Context.Site.RootPath);
-                    if (SiteItemId == currentRootItem.ID)
-                    {
-                        ruleResponse = true;
-                    }
-                    //shouldn't need to test for descendants, site should be at the rootPath level
-                }
-                else if (ruleContext is InsertOptionsRuleContext)
-                {
-                    var insertOptionsRuleContext = ruleContext as InsertOptionsRuleContext;
-                    var currentRootItem = insertOptionsRuleContext.Item;
-                    if (SiteItemId == currentRootItem.ID)
-                    {
-                        ruleResponse = true;
-                    }
-                    else
-                    {
-                        var siteItem = currentRootItem.Database.GetItem(SiteItemId);
-                        var isDescendantOf = currentRootItem.Paths.FullPath.StartsWith(siteItem.Paths.FullPath);
-                        ruleResponse = isDescendantOf;
-                    }
-                }
+                var currentRootItem = ruleContext.Item;
+                var siteItem = currentRootItem.Database.GetItem(SiteItemId);
+                bool isDescendantOf = currentRootItem.Paths.FullPath.StartsWith(siteItem.Paths.FullPath) || currentRootItem.Paths.FullPath.Equals(siteItem.Paths.FullPath);
+                ruleResponse = isDescendantOf;
+                Log.Info(string.Format("BlockModulesBySiteSettingsRule:Comparison -- {0} :: {1}", siteItem, currentRootItem.Paths.FullPath), this);
             }
             catch (Exception ex)
             {

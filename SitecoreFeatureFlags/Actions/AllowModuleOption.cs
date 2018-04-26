@@ -16,8 +16,8 @@ namespace SitecoreFeatureFlags.Actions
             Sitecore.Diagnostics.Assert.ArgumentNotNull(ruleContext, "ruleContext");
             Sitecore.Diagnostics.Assert.ArgumentNotNull(OptionId, "OptionId");
             Sitecore.Diagnostics.Assert.ArgumentNotNull(ruleContext.OptionsToAllow, "AllowModuleOption");
-            var renderingToAllow = ruleContext.Item.Database.GetItem(OptionId);
-            ruleContext.OptionsToAllow.Add(renderingToAllow);
+            var optionToAllow = ruleContext.Item.Database.GetItem(OptionId);
+            ruleContext.OptionsToAllow.Add(optionToAllow);
         }
     }
 }

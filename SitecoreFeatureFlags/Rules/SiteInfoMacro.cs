@@ -38,7 +38,7 @@ namespace SitecoreFeatureFlags.Rules
             }
 
             var itemListerOptions = new ItemListerOptions();
-            itemListerOptions.Items = siteItems;
+            itemListerOptions.Items = siteItems.Distinct().ToList();
             itemListerOptions.Title = "Select Site";
             itemListerOptions.Text = string.Empty;
             itemListerOptions.Icon = "applications/32x32/media_stop.png";

@@ -61,30 +61,36 @@ namespace SitecoreFeatureFlags.Pipelines
             {
                 args.Options.ShowTree = false;
             }
-            foreach (var controlToAllow in controlsToAllow)
-            {
-                args.PlaceholderRenderings.Add(controlToAllow);
-            }
 
             foreach (var controlToBlock in controlsToBlock)
             {
                 args.PlaceholderRenderings.RemoveAll(c => c.ID == controlToBlock.ID);
+                Log.Info(string.Format("GetActiveModules: {0} blocked for {1}", controlToBlock.Name, _contextItem.Name), this);
             }
+
+            foreach (var controlToAllow in controlsToAllow)
+            {
+                args.PlaceholderRenderings.Add(controlToAllow);
+                Log.Info(string.Format("GetActiveModules: {0} allowed for {1}", controlToAllow.Name, _contextItem.Name), this);
+            }
+
         }
 
         private PlaceholderSettingsRuleContext EvaluateRules(Item placeholder)
         {
-            PlaceholderSettingsRuleContext context = new PlaceholderSettingsRuleContext();
-            context.Item = _contextItem;
+            PlaceholderSettingsRuleContext ruleContext = new PlaceholderSettingsRuleContext();
+            ruleContext.Item = _contextItem;
             foreach (Rule<PlaceholderSettingsRuleContext> rule in RuleFactory.GetRules<PlaceholderSettingsRuleContext>(new[] { placeholder }, AllowedModulesRulesField).Rules)
             {
                 if (rule.Condition != null)
                 {
-                    rule.Execute(context);
+                    var passed = rule.Evaluate(ruleContext);
+                    if (passed)
+                        rule.Execute(ruleContext);
                 }
             }
 
-            return context;
+            return ruleContext;
         }
 
         private Item _getContextItem()

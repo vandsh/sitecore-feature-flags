@@ -17,28 +17,41 @@ namespace SitecoreFeatureFlags.Pipelines
     public class GetAllowedOptions
     {
         protected Item _contextItem;
+        protected Item _datasourceItem;
         public const string ModuleTypeRulesField = "Module Type Rules";
         public void Process(GetLookupSourceItemsArgs args)
         {
             var source = args.Source;
             if (!source.IsNullOrEmpty())
             {
-               _contextItem = args.Item.Database.GetItem(source);
+                _datasourceItem = args.Item.Database.GetItem(source);
+                _contextItem = args.Item;
             }
             try
             {
-                var moduleOptionsRuleContext = EvaluateRules(_contextItem);
-                var optionsToAllow = moduleOptionsRuleContext.OptionsToAllow;
-                var optionsToBlock = moduleOptionsRuleContext.OptionsToBlock;
+                var rules = RuleFactory.GetRules<ModuleOptionsRuleContext>(new[] {_datasourceItem}, ModuleTypeRulesField).Rules;
+                if (rules.Any())
+                {
+                    var moduleOptionsRuleContext = EvaluateRules(rules);
+                    var optionsToAllow = moduleOptionsRuleContext.OptionsToAllow;
+                    var optionsToBlock = moduleOptionsRuleContext.OptionsToBlock;
 
-                foreach (var optionToAllow in optionsToAllow)
-                {
-                    args.Result.Add(optionToAllow);
-                }
-                foreach (var optionToBlock in optionsToBlock)
-                {
-                    var optionToBlockItem = args.Result.Cast<Item>().FirstOrDefault(rs => rs.ID == optionToBlock.ID);
-                    args.Result.Remove(optionToBlockItem);
+                    var optionIdsToBlock = optionsToBlock.Select(x => x.ID);
+                    var optionsToRemove = args.Result.Cast<Item>().Where(oi => optionIdsToBlock.Contains(oi.ID)).ToList();
+                    foreach (var optionToRemove in optionsToRemove)
+                    {
+                        args.Result.Remove(optionToRemove);
+                        Log.Info(string.Format("GetAllowedOptions: {0} removed for {1}", optionToRemove.Name, _contextItem.Name), this);
+                    }
+
+                    foreach (var optionToAllow in optionsToAllow)
+                    {
+                        if (!args.Result.ContainsID(optionToAllow.ID))
+                        {
+                            args.Result.Add(optionToAllow);
+                            Log.Info(string.Format("GetAllowedOptions: {0} allowed for {1}", optionToAllow.Name, _contextItem.Name), this);
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -47,19 +60,21 @@ namespace SitecoreFeatureFlags.Pipelines
             }
         }
 
-        private ModuleOptionsRuleContext EvaluateRules(Item moduleItem)
+        private ModuleOptionsRuleContext EvaluateRules(IEnumerable<Rule<ModuleOptionsRuleContext>> rules)
         {
-            var context = new ModuleOptionsRuleContext();
-            context.Item = _contextItem;
-            foreach (Rule<ModuleOptionsRuleContext> rule in RuleFactory.GetRules<ModuleOptionsRuleContext>(new[] { moduleItem }, ModuleTypeRulesField).Rules)
+            var ruleContext = new ModuleOptionsRuleContext();
+            ruleContext.Item = _contextItem;
+            foreach (Rule<ModuleOptionsRuleContext> rule in rules)
             {
                 if (rule.Condition != null)
                 {
-                    rule.Execute(context);
+                    var passed = rule.Evaluate(ruleContext);
+                    if (passed)
+                        rule.Execute(ruleContext);
                 }
             }
 
-            return context;
+            return ruleContext;
         }
     }
 }
