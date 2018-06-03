@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
 using Sitecore;
@@ -24,6 +25,7 @@ namespace SitecoreFeatureFlags.Pipelines
             try
             {
                 _contextItem = _getContextItem();
+                Assert.IsNotNull(_contextItem, "_contextItem");
 
                 Item placeholderItem = null;
                 if (args.DeviceId.IsNull)
@@ -52,26 +54,63 @@ namespace SitecoreFeatureFlags.Pipelines
         
         private void ProcessPlaceholder(Item placeholderItem, GetPlaceholderRenderingsArgs args)
         {
-            PlaceholderSettingsRuleContext context = this.EvaluateRules(placeholderItem);
-
-            var controlsToAllow = context.ControlsToAllow;
-            var controlsToBlock = context.ControlsToBlock;
-            bool allowedControlsFieldSpecified = false;
-            if (allowedControlsFieldSpecified)
+            if (placeholderItem == null)
             {
-                args.Options.ShowTree = false;
+                Log.Info("ProcessPlaceholder: placeholderItem empty, stopping execution of Rule", this);
+                return;
+            }
+            if (args == null)
+            {
+                Log.Info("ProcessPlaceholder: args empty, stopping execution of Rule", this);
+                return;
             }
 
-            foreach (var controlToBlock in controlsToBlock)
+            PlaceholderSettingsRuleContext context = null;
+            List<Item> controlsToAllow = null;
+            List<Item> controlsToBlock = null;
+            try
             {
-                args.PlaceholderRenderings.RemoveAll(c => c.ID == controlToBlock.ID);
-                Log.Info(string.Format("GetActiveModules: {0} blocked for {1}", controlToBlock.Name, _contextItem.Name), this);
+                context = this.EvaluateRules(placeholderItem);
+            }
+            catch (Exception e)
+            {
+                Log.Info(string.Format("ProcessPlaceholder: unable to EvaluateRules (placeholderItem {0}, args {1})",  placeholderItem.ID, string.Join(",", args.PlaceholderRenderings.Select(r => r.ID))), this);
             }
 
-            foreach (var controlToAllow in controlsToAllow)
+            try
             {
-                args.PlaceholderRenderings.Add(controlToAllow);
-                Log.Info(string.Format("GetActiveModules: {0} allowed for {1}", controlToAllow.Name, _contextItem.Name), this);
+                if (context != null)
+                {
+                    controlsToAllow = context.ControlsToAllow;
+                    controlsToBlock = context.ControlsToBlock;
+                    bool allowedControlsFieldSpecified = false;
+                    if (allowedControlsFieldSpecified)
+                    {
+                        args.Options.ShowTree = false;
+                    }
+
+                    foreach (var controlToBlock in controlsToBlock)
+                    {
+                        if(args.PlaceholderRenderings != null && args.PlaceholderRenderings.Any()) { 
+                            args.PlaceholderRenderings.RemoveAll(c => c.ID == controlToBlock.ID);
+                            Log.Info( string.Format("GetActiveModules: {0} blocked for {1}", controlToBlock.Name, _contextItem.Name), this);
+                        }
+                    }
+
+                    foreach (var controlToAllow in controlsToAllow)
+                    {
+                        if (args.PlaceholderRenderings == null)
+                        {
+                            args.PlaceholderRenderings = new List<Item>();
+                        }
+                        args.PlaceholderRenderings.Add(controlToAllow);
+                        Log.Info( string.Format("GetActiveModules: {0} allowed for {1}", controlToAllow.Name, _contextItem.Name), this);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Info(string.Format("ProcessPlaceholder: unable to process BlockedModules (placeholderItem {0}, controlsToAllow {1}, controlsToBlock {2})", placeholderItem.ID, string.Join(",", controlsToAllow.Select(r => r.ID)), string.Join(",", controlsToBlock.Select(r => r.ID))), this);
             }
 
         }
@@ -99,9 +138,16 @@ namespace SitecoreFeatureFlags.Pipelines
 
             if (contextItem == null)
             {
-                string itemId = _getContextItemId();
-                var master = Factory.GetDatabase("master");
-                contextItem = master.GetItem(new ID(itemId));
+                try
+                {
+                    string itemId = _getContextItemId();
+                    var master = Factory.GetDatabase("master");
+                    contextItem = master.GetItem(new ID(itemId));
+                }
+                catch (Exception ex)
+                {
+                    Log.Warn(string.Format("GetActiveModules: could not extract context item from query string - {0}", ex.Message), this);
+                }
             }
 
             return contextItem;
@@ -109,18 +155,21 @@ namespace SitecoreFeatureFlags.Pipelines
 
         private string _getContextItemId()
         {
-            string result = string.Empty;
-            if (Context.Request.QueryString["sc_itemid"] != null)
+            string empty = string.Empty;
+            if (Context.Request.QueryString["id"] == null)
             {
-                result = Context.Request.GetQueryString("sc_itemid");
+                int? indexOf = Context.Request.GetQueryString("url")?.IndexOf("?");
+                if (indexOf.HasValue)
+                {
+                    NameValueCollection nameValueCollection = HttpUtility.ParseQueryString(Context.Request.GetQueryString("url").Substring(indexOf.Value));
+                    empty = nameValueCollection["sc_itemid"];
+                }
             }
             else
             {
-                var valueList = HttpUtility.ParseQueryString(Context.Request.GetQueryString("url"));
-                result = valueList["sc_itemid"] ?? valueList["/?sc_itemid"];
+                empty = Context.Request.GetQueryString("id");
             }
-
-            return result;
+            return empty;
         }
     }
 }

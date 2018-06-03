@@ -26,7 +26,7 @@ namespace SitecoreFeatureFlags.Rules
                 var siteItem = currentRootItem.Database.GetItem(SiteItemId);
                 bool isDescendantOf = currentRootItem.Paths.FullPath.StartsWith(siteItem.Paths.FullPath) || currentRootItem.Paths.FullPath.Equals(siteItem.Paths.FullPath);
                 ruleResponse = isDescendantOf;
-                Log.Info(string.Format("BlockModulesBySiteSettingsRule:Comparison -- {0} :: {1}", siteItem, currentRootItem.Paths.FullPath), this);
+                Log.Info(string.Format("BlockModulesBySiteSettingsRule:Comparison -- {0} :: {1}", siteItem.ID, currentRootItem.Paths.FullPath), this);
             }
             catch (Exception ex)
             {
