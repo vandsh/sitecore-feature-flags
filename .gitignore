@@ -1,11 +1,11 @@
 .vs/
 debug/
-SitecoreFeatureFlags/bin/
-SitecoreFeatureFlags/obj/
+Sitecore.FeatureFlags/bin/
+Sitecore.FeatureFlags/obj/
 packages/
 lib/Sitecore.*
 lib/HedgehogDevelopment.TDS.5.5.0.19/*
 release/
 *.user
-SitecoreFeatureFlags.TDS/obj
-SitecoreFeatureFlags.TDS/bin
+Sitecore.FeatureFlags.TDS/obj
+Sitecore.FeatureFlags.TDS/bin

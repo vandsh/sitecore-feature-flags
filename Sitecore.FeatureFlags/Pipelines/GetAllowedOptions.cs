@@ -1,18 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using Sitecore;
-using Sitecore.Configuration;
-using Sitecore.Data;
 using Sitecore.Data.Items;
 using Sitecore.Diagnostics;
+using Sitecore.FeatureFlags.RulesContext;
 using Sitecore.Pipelines.GetLookupSourceItems;
 using Sitecore.Rules;
 using Sitecore.StringExtensions;
-using SitecoreFeatureFlags.RulesContext;
 
-namespace SitecoreFeatureFlags.Pipelines
+namespace Sitecore.FeatureFlags.Pipelines
 {
     public class GetAllowedOptions
     {

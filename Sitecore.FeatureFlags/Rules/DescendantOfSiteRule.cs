@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using Sitecore.Data;
 using Sitecore.Diagnostics;
 using Sitecore.Rules;
-using Sitecore.Rules.ConditionalRenderings;
 using Sitecore.Rules.Conditions;
-using Sitecore.Rules.InsertOptions;
-using SitecoreFeatureFlags.RulesContext;
 
-namespace SitecoreFeatureFlags.Rules
+namespace Sitecore.FeatureFlags.Rules
 {
     public class DescendantOfSiteRule<T> : WhenCondition<T> where T : RuleContext
     {

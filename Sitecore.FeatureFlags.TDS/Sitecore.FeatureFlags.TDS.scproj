@@ -7,19 +7,19 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>8d7d5302-2dce-4af5-84bb-cedb26fca881</ProjectGuid>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
-    <SourceWebPhysicalPath>..\SitecoreFeatureFlags</SourceWebPhysicalPath>
-    <SourceWebProject>{12354219-d843-4f2e-a56b-e7fc3cdb16ac}|SitecoreFeatureFlags\SitecoreFeatureFlags.csproj</SourceWebProject>
-    <SourceWebVirtualPath>/SitecoreFeatureFlags.csproj</SourceWebVirtualPath>
+    <SourceWebPhysicalPath>..\Sitecore.FeatureFlags</SourceWebPhysicalPath>
+    <SourceWebProject>{12354219-d843-4f2e-a56b-e7fc3cdb16ac}|Sitecore.FeatureFlags\Sitecore.FeatureFlags.csproj</SourceWebProject>
+    <SourceWebVirtualPath>/Sitecore.FeatureFlags.csproj</SourceWebVirtualPath>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <EnableUpdateable>true</EnableUpdateable>
     <UseMerge>true</UseMerge>
-    <SingleAssemblyName>SitecoreFeatureFlags.TDS</SingleAssemblyName>
+    <SingleAssemblyName>Sitecore.FeatureFlags.TDS</SingleAssemblyName>
     <UseWebConfigReplacement>false</UseWebConfigReplacement>
     <DeleteAppCodeCompiledFiles>true</DeleteAppCodeCompiledFiles>
     <LegacyFileReplacement>false</LegacyFileReplacement>
-    <AssemblyName>SitecoreFeatureFlags.TDS</AssemblyName>
-    <Name>SitecoreFeatureFlags.TDS</Name>
-    <RootNamespace>SitecoreFeatureFlags.TDS</RootNamespace>
+    <AssemblyName>Sitecore.FeatureFlags.TDS</AssemblyName>
+    <Name>Sitecore.FeatureFlags.TDS</Name>
+    <RootNamespace>Sitecore.FeatureFlags.TDS</RootNamespace>
     <ManageRoles>False</ManageRoles>
     <SitecoreDatabase>master</SitecoreDatabase>
     <AssemblyStatus>Exclude</AssemblyStatus>
@@ -50,9 +50,9 @@
     </AssemblyAttributes>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SitecoreFeatureFlags\SitecoreFeatureFlags.csproj">
+    <ProjectReference Include="..\Sitecore.FeatureFlags\Sitecore.FeatureFlags.csproj">
       <Project>{12354219-d843-4f2e-a56b-e7fc3cdb16ac}</Project>
-      <Name>SitecoreFeatureFlags</Name>
+      <Name>Sitecore.FeatureFlags</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -82,12 +82,15 @@
     </SitecoreItem>
     <SitecoreItem Include="sitecore\system\Settings\Rules\Definitions\Elements\Feature Flags\Allow Control.item">
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
+      <ChildItemSynchronization>NoChildSynchronization</ChildItemSynchronization>
     </SitecoreItem>
     <SitecoreItem Include="sitecore\system\Settings\Rules\Definitions\Elements\Feature Flags\Block Control.item">
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
+      <ChildItemSynchronization>NoChildSynchronization</ChildItemSynchronization>
     </SitecoreItem>
     <SitecoreItem Include="sitecore\system\Settings\Rules\Definitions\Elements\Feature Flags\Descendant of Site.item">
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
+      <ChildItemSynchronization>NoChildSynchronization</ChildItemSynchronization>
     </SitecoreItem>
     <SitecoreItem Include="sitecore\system\Settings\Rules\Definitions\Elements\Feature Flags\Tags.item">
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
@@ -95,9 +98,11 @@
     </SitecoreItem>
     <SitecoreItem Include="sitecore\system\Settings\Rules\Definitions\Elements\Feature Flags\Tags\Default.item">
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
+      <ChildItemSynchronization>NoChildSynchronization</ChildItemSynchronization>
     </SitecoreItem>
     <SitecoreItem Include="sitecore\system\Settings\Rules\Definitions\Elements\Feature Flags\Visibility.item">
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
+      <ChildItemSynchronization>NoChildSynchronization</ChildItemSynchronization>
     </SitecoreItem>
     <SitecoreItem Include="sitecore\system\Settings\Rules\Definitions\Macros.item">
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
@@ -105,6 +110,7 @@
     </SitecoreItem>
     <SitecoreItem Include="sitecore\system\Settings\Rules\Definitions\Macros\SiteInfo.item">
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
+      <ChildItemSynchronization>NoChildSynchronization</ChildItemSynchronization>
     </SitecoreItem>
     <SitecoreItem Include="sitecore\system\Settings\Rules\Definitions\Tags.item">
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
@@ -116,6 +122,7 @@
     </SitecoreItem>
     <SitecoreItem Include="sitecore\system\Settings\Rules\Definitions\Tags\Feature Flags\Visibility.item">
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
+      <ChildItemSynchronization>NoChildSynchronization</ChildItemSynchronization>
     </SitecoreItem>
     <SitecoreItem Include="sitecore\system\Settings\Rules\Feature Flags.item">
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
@@ -123,6 +130,7 @@
     </SitecoreItem>
     <SitecoreItem Include="sitecore\system\Settings\Rules\Feature Flags\Rules.item">
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
+      <ChildItemSynchronization>NoChildSynchronization</ChildItemSynchronization>
     </SitecoreItem>
     <SitecoreItem Include="sitecore\system\Settings\Rules\Feature Flags\Tags.item">
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
@@ -130,6 +138,7 @@
     </SitecoreItem>
     <SitecoreItem Include="sitecore\system\Settings\Rules\Feature Flags\Tags\Default.item">
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
+      <ChildItemSynchronization>NoChildSynchronization</ChildItemSynchronization>
     </SitecoreItem>
     <SitecoreItem Include="sitecore\system\Settings\Rules\Insert Options.item">
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
@@ -141,6 +150,7 @@
     </SitecoreItem>
     <SitecoreItem Include="sitecore\system\Settings\Rules\Insert Options\Tags\Default.item">
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
+      <ChildItemSynchronization>NoChildSynchronization</ChildItemSynchronization>
     </SitecoreItem>
     <SitecoreItem Include="sitecore\templates.item">
       <ChildItemSynchronization>NoChildSynchronization</ChildItemSynchronization>
@@ -156,6 +166,7 @@
     </SitecoreItem>
     <SitecoreItem Include="sitecore\templates\Feature Flags\_Placeholder Settings Base\__Standard Values.item">
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
+      <ChildItemSynchronization>NoChildSynchronization</ChildItemSynchronization>
     </SitecoreItem>
     <SitecoreItem Include="sitecore\templates\Feature Flags\_Placeholder Settings Base\Data.item">
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
@@ -163,6 +174,7 @@
     </SitecoreItem>
     <SitecoreItem Include="sitecore\templates\Feature Flags\_Placeholder Settings Base\Data\Allowed Modules Rule.item">
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
+      <ChildItemSynchronization>NoChildSynchronization</ChildItemSynchronization>
     </SitecoreItem>
     <SitecoreItem Include="sitecore\templates\System.item">
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
@@ -178,6 +190,7 @@
     </SitecoreItem>
     <SitecoreItem Include="sitecore\templates\System\Layout\Placeholder\__Standard Values.item">
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
+      <ChildItemSynchronization>NoChildSynchronization</ChildItemSynchronization>
     </SitecoreItem>
     <SitecoreItem Include="sitecore\templates\System\Layout\Placeholder\Data.item">
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
@@ -185,15 +198,19 @@
     </SitecoreItem>
     <SitecoreItem Include="sitecore\templates\System\Layout\Placeholder\Data\Allowed Controls.item">
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
+      <ChildItemSynchronization>NoChildSynchronization</ChildItemSynchronization>
     </SitecoreItem>
     <SitecoreItem Include="sitecore\templates\System\Layout\Placeholder\Data\Description.item">
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
+      <ChildItemSynchronization>NoChildSynchronization</ChildItemSynchronization>
     </SitecoreItem>
     <SitecoreItem Include="sitecore\templates\System\Layout\Placeholder\Data\Editable.item">
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
+      <ChildItemSynchronization>NoChildSynchronization</ChildItemSynchronization>
     </SitecoreItem>
     <SitecoreItem Include="sitecore\templates\System\Layout\Placeholder\Data\Placeholder Key.item">
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
+      <ChildItemSynchronization>NoChildSynchronization</ChildItemSynchronization>
     </SitecoreItem>
   </ItemGroup>
   <Import Project="..\lib\HedgehogDevelopment.TDS.5.5.0.19\build\HedgehogDevelopment.TDS.targets" />

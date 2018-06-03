@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using Sitecore.Data.Items;
 using Sitecore.Rules;
 
-namespace SitecoreFeatureFlags.RulesContext
+namespace Sitecore.FeatureFlags.RulesContext
 {
     public class ModuleOptionsRuleContext : RuleContext
     {

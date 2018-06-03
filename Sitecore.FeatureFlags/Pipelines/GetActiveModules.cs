@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
-using Sitecore;
 using Sitecore.Configuration;
 using Sitecore.Data;
 using Sitecore.Data.Items;
 using Sitecore.Diagnostics;
+using Sitecore.FeatureFlags.RulesContext;
 using Sitecore.Pipelines.GetPlaceholderRenderings;
 using Sitecore.Rules;
-using SitecoreFeatureFlags.RulesContext;
 
-namespace SitecoreFeatureFlags.Pipelines
+namespace Sitecore.FeatureFlags.Pipelines
 {
     public class GetActiveModules : GetAllowedRenderings
     {

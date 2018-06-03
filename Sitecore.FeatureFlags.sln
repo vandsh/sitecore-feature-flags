@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SitecoreFeatureFlags", "SitecoreFeatureFlags\SitecoreFeatureFlags.csproj", "{12354219-D843-4F2E-A56B-E7FC3CDB16AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sitecore.FeatureFlags", "Sitecore.FeatureFlags\Sitecore.FeatureFlags.csproj", "{12354219-D843-4F2E-A56B-E7FC3CDB16AC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{E819C5A4-7796-4B89-B1E7-0036402FD249}"
 	ProjectSection(SolutionItems) = preProject
@@ -12,7 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{E819C5A4
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{CAA73BB0-EF22-4D79-A57E-DF67B3BA9C80}") = "SitecoreFeatureFlags.TDS", "SitecoreFeatureFlags.TDS\SitecoreFeatureFlags.TDS.scproj", "{8D7D5302-2DCE-4AF5-84BB-CEDB26FCA881}"
+Project("{CAA73BB0-EF22-4D79-A57E-DF67B3BA9C80}") = "Sitecore.FeatureFlags.TDS", "Sitecore.FeatureFlags.TDS\Sitecore.FeatureFlags.TDS.scproj", "{8D7D5302-2DCE-4AF5-84BB-CEDB26FCA881}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
