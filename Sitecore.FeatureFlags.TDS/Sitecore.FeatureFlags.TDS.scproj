@@ -173,6 +173,7 @@
     </SitecoreItem>
     <SitecoreItem Include="sitecore\templates\Feature Flags\_Module Option\__Standard Values.item">
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
+      <ChildItemSynchronization>NoChildSynchronization</ChildItemSynchronization>
     </SitecoreItem>
     <SitecoreItem Include="sitecore\templates\Feature Flags\_Module Option\Module Rules.item">
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
@@ -180,6 +181,7 @@
     </SitecoreItem>
     <SitecoreItem Include="sitecore\templates\Feature Flags\_Module Option\Module Rules\Module Type Rules.item">
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
+      <ChildItemSynchronization>NoChildSynchronization</ChildItemSynchronization>
     </SitecoreItem>
     <SitecoreItem Include="sitecore\templates\Feature Flags\_Placeholder Settings Base.item">
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
@@ -203,6 +205,7 @@
     </SitecoreItem>
     <SitecoreItem Include="sitecore\templates\Feature Flags\Module Options Folder\__Standard Values.item">
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
+      <ChildItemSynchronization>NoChildSynchronization</ChildItemSynchronization>
     </SitecoreItem>
     <SitecoreItem Include="sitecore\templates\System.item">
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
