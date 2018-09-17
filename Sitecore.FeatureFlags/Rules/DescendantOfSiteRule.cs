@@ -13,7 +13,6 @@ namespace Sitecore.FeatureFlags.Rules
         {
             var ruleResponse = false;
             Assert.IsNotNull(ruleContext, "RuleContext is null");
-            bool matchFound = false;
             try
             {
                 var currentRootItem = ruleContext.Item;

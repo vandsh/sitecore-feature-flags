@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -28,13 +28,12 @@
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>.\bin\Debug\</OutputPath>
     <RecursiveDeployAction>Ignore</RecursiveDeployAction>
-    <SitecoreWebUrl>
-    </SitecoreWebUrl>
+    <SitecoreWebUrl>http://sc9test</SitecoreWebUrl>
     <InstallSitecoreConnector>True</InstallSitecoreConnector>
     <DisableFileDeployment>False</DisableFileDeployment>
-    <SitecoreDeployFolder>
-    </SitecoreDeployFolder>
-    <SitecoreAccessGuid>f089a204-cc96-436d-be75-a593494325ed</SitecoreAccessGuid>
+    <SitecoreDeployFolder>C:\inetpub\wwwroot\sc9test\Website</SitecoreDeployFolder>
+    <SitecoreAccessGuid>a8cfa2a6-4935-4bdb-87bb-1adc7625d23c</SitecoreAccessGuid>
+    <LightningDeployMode>False</LightningDeployMode>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <DebugSymbols>false</DebugSymbols>
@@ -168,6 +167,20 @@
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
       <ChildItemSynchronization>NoChildSynchronization</ChildItemSynchronization>
     </SitecoreItem>
+    <SitecoreItem Include="sitecore\templates\Feature Flags\_Module Option.item">
+      <ItemDeployment>AlwaysUpdate</ItemDeployment>
+      <ChildItemSynchronization>NoChildSynchronization</ChildItemSynchronization>
+    </SitecoreItem>
+    <SitecoreItem Include="sitecore\templates\Feature Flags\_Module Option\__Standard Values.item">
+      <ItemDeployment>AlwaysUpdate</ItemDeployment>
+    </SitecoreItem>
+    <SitecoreItem Include="sitecore\templates\Feature Flags\_Module Option\Module Rules.item">
+      <ItemDeployment>AlwaysUpdate</ItemDeployment>
+      <ChildItemSynchronization>NoChildSynchronization</ChildItemSynchronization>
+    </SitecoreItem>
+    <SitecoreItem Include="sitecore\templates\Feature Flags\_Module Option\Module Rules\Module Type Rules.item">
+      <ItemDeployment>AlwaysUpdate</ItemDeployment>
+    </SitecoreItem>
     <SitecoreItem Include="sitecore\templates\Feature Flags\_Placeholder Settings Base.item">
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
       <ChildItemSynchronization>NoChildSynchronization</ChildItemSynchronization>
@@ -183,6 +196,13 @@
     <SitecoreItem Include="sitecore\templates\Feature Flags\_Placeholder Settings Base\Data\Allowed Modules Rule.item">
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
       <ChildItemSynchronization>NoChildSynchronization</ChildItemSynchronization>
+    </SitecoreItem>
+    <SitecoreItem Include="sitecore\templates\Feature Flags\Module Options Folder.item">
+      <ItemDeployment>AlwaysUpdate</ItemDeployment>
+      <ChildItemSynchronization>NoChildSynchronization</ChildItemSynchronization>
+    </SitecoreItem>
+    <SitecoreItem Include="sitecore\templates\Feature Flags\Module Options Folder\__Standard Values.item">
+      <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
     <SitecoreItem Include="sitecore\templates\System.item">
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
@@ -221,5 +241,5 @@
       <ChildItemSynchronization>NoChildSynchronization</ChildItemSynchronization>
     </SitecoreItem>
   </ItemGroup>
-  <Import Project="..\lib\HedgehogDevelopment.TDS.5.5.0.19\build\HedgehogDevelopment.TDS.targets" />
+  <Import Project="..\lib\tds\HedgehogDevelopment.SitecoreProject.targets" />
 </Project>

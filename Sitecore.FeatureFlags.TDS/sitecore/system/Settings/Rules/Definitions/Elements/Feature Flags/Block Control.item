@@ -14,9 +14,9 @@ created: 20180330T175637Z
 field: {FF55D5A7-6D4B-4CD1-83E0-BAC268073F66}
 name: Type
 key: type
-content-length: 70
+content-length: 72
 
-SitecoreFeatureFlags.Actions.BlockControlsAction, SitecoreFeatureFlags
+Sitecore.FeatureFlags.Actions.BlockControlsAction, Sitecore.FeatureFlags
 ----version----
 language: en
 version: 1
